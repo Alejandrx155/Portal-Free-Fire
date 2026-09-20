@@ -21,19 +21,4 @@ Portal no oficial hecho por fans de Free Fire, con herramientas interactivas, ca
 - Tailwind CSS 4
 - ESLint
 
-## Cómo correrlo localmente
-
-```bash
-npm install
-npm run dev
-```
-
-Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
-
-## Deploy
-
-Publicado en [Vercel](https://vercel.com).
-
----
-
-**Aviso:** Sitio no oficial · Proyecto educativo de fans · No afiliado a Garena ni a GARENA INTERNATIONAL I PRIVATE LIMITED. Free Fire es una marca registrada de sus respectivos dueños.
+Hecho por Alejandrx15
