@@ -1,0 +1,838 @@
+@import "tailwindcss";
+
+@theme {
+  /* Tema base: identidad "Radar Premium".
+     Fondo azul-noche profundo, vidrio esmerilado sutil, esquinas
+     orgánicas en toda la interfaz. Nada de aristas duras ni HUD táctico. */
+  --color-ink: #0b0f19;
+  --color-ink2: #10151f;
+  --color-surface: #141b28;
+  --color-raised: #1b2434;
+  --color-line: #212b3d;
+  --color-line2: #2d3a52;
+  --color-bone: #eef1f6;
+  --color-muted: #9aa6bd;
+  --color-faint: #66718a;
+  --color-alert: #4f9dff;
+  --color-warn: #eab54c;
+  --color-radar: #34d399;
+  --color-chill: #7db4ff;
+  --color-on-alert: #06121f;
+  --color-on-warn: #241705;
+
+  /* Tintes de navegación: píldoras sobre glass (oscuro) */
+  --nav-tint: rgba(255, 255, 255, 0.06);
+  --nav-pill: rgba(255, 255, 255, 0.1);
+
+  --font-heading: var(--font-chakra), "Arial Narrow", Impact, sans-serif;
+  --font-display: var(--font-chakra), "Arial Narrow", Impact, sans-serif;
+  --font-body: var(--font-manrope), system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-manrope), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "Cascadia Mono", monospace;
+
+  /* Curvas de movimiento: entradas suaves, sin rebote agresivo */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Escala de radios: esquinas orgánicas en toda la UI */
+  --radius-xs: 10px;
+  --radius-sm: 14px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  /* Sombras en capas: profundidad suave, sin bordes marcados */
+  --shadow-xs: 0 1px 2px color-mix(in srgb, #000 32%, transparent);
+  --shadow-sm:
+    0 1px 2px color-mix(in srgb, #000 30%, transparent),
+    0 8px 20px -12px color-mix(in srgb, #000 45%, transparent);
+  --shadow-md:
+    0 2px 6px color-mix(in srgb, #000 28%, transparent),
+    0 16px 36px -16px color-mix(in srgb, #000 50%, transparent);
+  --shadow-lg:
+    0 4px 10px color-mix(in srgb, #000 26%, transparent),
+    0 32px 72px -24px color-mix(in srgb, #000 58%, transparent);
+}
+
+/* ---------- Temas: Paletas Ultra-Premium & OLED Luxury (data-theme en <html>) ---------- */
+
+/* TEMA AZUL (Midnight Sapphire / Cyber Luxury) */
+[data-theme="azul"] {
+  --color-ink: #020408;        /* Negro OLED profundo con matiz azul noche */
+  --color-ink2: #060911;       /* Elevación base ultra suave */
+  --color-surface: #0b101d;    /* Cristal translúcido / Paneles */
+  --color-raised: #12192c;     /* Hover y tarjetas destacadas */
+  --color-line: rgba(255, 255, 255, 0.06);  /* Bordes invisibles pero definidos */
+  --color-line2: rgba(255, 255, 255, 0.12); /* Trazo de luz en hover */
+  --color-bone: #f8fafc;       /* Blanco titanio */
+  --color-muted: #8b9bb4;      /* Azul platino / Texto secundario */
+  --color-faint: #505e75;      /* Placeholders y etiquetas inactivas */
+  --color-alert: #2563eb;      /* Azul cobalto de alta fidelidad */
+  --color-warn: #f59e0b;       /* Ámbar pulido */
+  --color-radar: #10b981;      /* Verde esmeralda de precisión */
+  --color-chill: #3b82f6;      /* Azul radiante secundario */
+  --color-on-alert: #ffffff;
+  --color-on-warn: #000000;
+}
+
+/* TEMA VERDE (Obsidian Emerald / Stealth Tech) */
+[data-theme="verde"] {
+  --color-ink: #020604;
+  --color-ink2: #050d09;
+  --color-surface: #0a1711;
+  --color-raised: #10241b;
+  --color-line: rgba(255, 255, 255, 0.06);
+  --color-line2: rgba(255, 255, 255, 0.12);
+  --color-bone: #f0fdf4;
+  --color-muted: #74c69d;
+  --color-faint: #407b5e;
+  --color-alert: #059669;      /* Esmeralda profundo */
+  --color-warn: #f59e0b;
+  --color-radar: #10b981;      /* Neón táctico de altísimo contraste */
+  --color-chill: #34d399;
+  --color-on-alert: #ffffff;
+  --color-on-warn: #000000;
+}
+
+/* TEMA NEGRO ABSOLUTO / MONOCROMÁTICO STEALTH (Dark Mode Puro) */
+[data-theme="violeta"] {
+  --color-ink: #000000;        /* Negro OLED puro */
+  --color-ink2: #050505;       /* Fondo secundario casi negro */
+  --color-surface: #0a0a0a;    /* Tarjetas y superficies en negro profundo */
+  --color-raised: #141414;     /* Paneles elevados y hover */
+  --color-line: rgba(255, 255, 255, 0.08);  /* Micro bordes de luz */
+  --color-line2: rgba(255, 255, 255, 0.18); /* Bordes definidos en hover */
+  --color-bone: #ffffff;       /* Texto principal blanco puro */
+  --color-muted: #a1a1aa;      /* Texto secundario gris claro */
+  --color-faint: #52525b;      /* Detalles y bordes secundarios en gris neutro */
+  --color-alert: #ffffff;      /* Botón principal blanco sólido (Estilo Apple/Vercel) */
+  --color-warn: #e4e4e7;       /* Gris muy claro neutro */
+  --color-radar: #ffffff;      /* Blanco brillante neutro */
+  --color-chill: #71717a;      /* Gris neutro para acentos secundarios */
+  --color-on-alert: #000000;   /* Texto negro dentro del botón blanco */
+  --color-on-warn: #000000;
+}
+
+/* TEMA CIAN (Pure Cyan / Titanium Ice) */
+[data-theme="cian"] {
+  --color-ink: #010508;
+  --color-ink2: #040a10;
+  --color-surface: #08131d;
+  --color-raised: #0f1f2e;
+  --color-line: rgba(255, 255, 255, 0.06);
+  --color-line2: rgba(255, 255, 255, 0.12);
+  --color-bone: #f0f9ff;
+  --color-muted: #62b6cb;
+  --color-faint: #316879;
+  --color-alert: #0284c7;      /* Cían eléctrico / Cerúleo */
+  --color-warn: #f59e0b;
+  --color-radar: #10b981;
+  --color-chill: #38bdf8;
+  --color-on-alert: #ffffff;
+  --color-on-warn: #000000;
+}
+
+/* TEMA CLARO (Monochrome Minimal / Studio White) */
+[data-theme="claro"] {
+  --color-ink: #fafafa;        /* Blanco de estudio fotográfico */
+  --color-ink2: #f4f4f5;
+  --color-surface: #ffffff;    /* Tarjetas puras */
+  --color-raised: #ffffff;
+  --color-line: rgba(0, 0, 0, 0.05);   /* Micro trazos grisáceos */
+  --color-line2: rgba(0, 0, 0, 0.10);
+  --color-bone: #09090b;       /* Negro grafito absoluto */
+  --color-muted: #52525b;
+  --color-faint: #a1a1aa;
+  --color-alert: #18181b;      /* Botón primario negro satinado (Estilo Vercel/Apple) */
+  --color-warn: #d97706;
+  --color-radar: #059669;
+  --color-chill: #2563eb;
+  --color-on-alert: #ffffff;   /* Texto blanco sobre botón negro */
+  --color-on-warn: #ffffff;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+html[data-theme="claro"] {
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  transition: background-color 0.4s var(--ease-out), color 0.4s var(--ease-out);
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-alert);
+  color: var(--color-on-alert);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-warn);
+  outline-offset: 3px;
+  border-radius: var(--radius-xs);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---------- Fondo de página: aurora suave, sin retícula agresiva ---------- */
+.radar-bg {
+  background-image:
+    radial-gradient(
+      ellipse 60% 40% at 18% -10%,
+      color-mix(in srgb, var(--color-alert) 10%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 50% 38% at 88% 6%,
+      color-mix(in srgb, var(--color-radar) 6%, transparent),
+      transparent 62%
+    ),
+    linear-gradient(var(--color-ink), var(--color-ink));
+}
+
+/* ---------- Textura de fondo: puntos casi invisibles, no cuadrícula dura ---------- */
+.tac-grid {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--color-bone) 7%, transparent) 1px,
+    transparent 1.4px
+  );
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 85%);
+}
+
+/* ---------- Resplandor de esquina: sustituye a las marcas HUD ---------- */
+.corner-coords {
+  position: relative;
+}
+.corner-coords::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0.7;
+  background: radial-gradient(
+    circle at 14% 12%,
+    color-mix(in srgb, var(--color-alert) 20%, transparent),
+    transparent 42%
+  );
+}
+
+/* ---------- Superficies Liquid Glass ---------- */
+.liquid-glass,
+.liquid-glass-strong {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--color-line2) 55%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+.liquid-glass {
+  background: color-mix(in srgb, var(--color-surface) 55%, transparent);
+  box-shadow: var(--shadow-sm), inset 0 1px 1px rgba(255, 255, 255, 0.06);
+}
+.liquid-glass-strong {
+  background: color-mix(in srgb, var(--color-surface) 78%, transparent);
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  backdrop-filter: blur(28px) saturate(150%);
+  box-shadow: var(--shadow-md), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+}
+@supports (mask-composite: exclude) or (-webkit-mask-composite: xor) {
+  .liquid-glass::after,
+  .liquid-glass-strong::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    pointer-events: none;
+    background: linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--color-bone) 22%, transparent),
+      color-mix(in srgb, var(--color-bone) 4%, transparent) 45%,
+      transparent
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+  }
+}
+
+/* ---------- Icono de vidrio para hubs ---------- */
+.glass-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  border-radius: var(--radius-md);
+  color: var(--color-alert);
+  background: color-mix(in srgb, var(--color-alert) 12%, var(--color-surface));
+  border: 1px solid color-mix(in srgb, var(--color-line2) 70%, transparent);
+}
+
+/* ---------- Tarjeta de herramienta: resplandor suave en vez de barra dura ---------- */
+.tool-card {
+  position: relative;
+  overflow: hidden;
+}
+.tool-card::before {
+  content: "";
+  position: absolute;
+  inset: -40% -40% auto -40%;
+  height: 70%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--color-alert) 20%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-out);
+  pointer-events: none;
+}
+.tool-card:hover::before {
+  opacity: 1;
+}
+
+/* ---------- Halo de firma: reemplaza las esquinas HUD anteriores ---------- */
+.hud-corners {
+  position: relative;
+}
+.hud-corners::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+  background: radial-gradient(
+    circle at 100% 0%,
+    color-mix(in srgb, var(--color-warn) 30%, transparent),
+    transparent 40%
+  );
+}
+.hud-corners::after {
+  content: none;
+}
+
+/* Punto de estado: indicador redondo, ya no cuadrado */
+.hud-tick {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--color-alert);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-alert) 18%, transparent);
+}
+
+/* Chip: cápsula redonda para etiquetas de estado */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid color-mix(in srgb, var(--color-line2) 70%, transparent);
+  background: color-mix(in srgb, var(--color-ink2) 80%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--color-radar);
+  animation: chipPulse 2.6s var(--ease-io) infinite;
+}
+@keyframes chipPulse {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-radar) 40%, transparent);
+  }
+  50% {
+    opacity: 0.75;
+    box-shadow: 0 0 0 5px transparent;
+  }
+}
+
+/* Chip compacto para barras (p.ej. header) */
+.chip-sm {
+  gap: 0.4rem;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+
+.tabular {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Botones: cápsulas redondeadas, sombra difusa premium ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  padding: 0.7rem 1.35rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  white-space: nowrap;
+  color: var(--color-bone);
+  background: transparent;
+  box-shadow: var(--shadow-xs);
+  transition:
+    transform 0.28s var(--ease-out),
+    background 0.28s var(--ease-out),
+    color 0.28s var(--ease-out),
+    border-color 0.28s var(--ease-out),
+    box-shadow 0.28s var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: var(--shadow-xs);
+}
+
+.btn-solid {
+  background: var(--color-alert);
+  border-color: var(--color-alert);
+  color: var(--color-on-alert);
+}
+.btn-solid:hover {
+  background: color-mix(in srgb, var(--color-alert) 90%, white);
+  border-color: color-mix(in srgb, var(--color-alert) 90%, white);
+  box-shadow:
+    var(--shadow-sm),
+    0 16px 32px -14px color-mix(in srgb, var(--color-alert) 55%, transparent);
+}
+.btn-warn {
+  background: var(--color-warn);
+  border-color: var(--color-warn);
+  color: var(--color-on-warn);
+}
+.btn-warn:hover {
+  background: color-mix(in srgb, var(--color-warn) 90%, white);
+  border-color: color-mix(in srgb, var(--color-warn) 90%, white);
+  box-shadow:
+    var(--shadow-sm),
+    0 16px 32px -14px color-mix(in srgb, var(--color-warn) 45%, transparent);
+}
+.btn-ghost {
+  border-color: color-mix(in srgb, var(--color-line2) 80%, transparent);
+  background: color-mix(in srgb, var(--color-surface) 55%, transparent);
+}
+.btn-ghost:hover {
+  border-color: color-mix(in srgb, var(--color-alert) 55%, var(--color-line2));
+  color: var(--color-bone);
+  background: color-mix(in srgb, var(--color-raised) 70%, transparent);
+}
+.btn-lg {
+  padding: 0.95rem 1.9rem;
+  font-size: 0.95rem;
+}
+
+/* ---------- Halos ambientales (sustituyen los anillos de radar) ---------- */
+.radar-rings {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.radar-rings span {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(1px);
+  border: 1px solid color-mix(in srgb, var(--color-alert) 16%, transparent);
+  animation: ringBreathe 11s var(--ease-io) infinite;
+}
+@keyframes ringBreathe {
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.25;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.6;
+  }
+}
+
+/* ---------- Inputs ---------- */
+.field {
+  width: 100%;
+  border-radius: var(--radius-md);
+  background: var(--color-ink2);
+  border: 1px solid var(--color-line2);
+  color: var(--color-bone);
+  padding: 0.65rem 0.9rem;
+  font-size: 0.95rem;
+  transition:
+    border-color 0.22s var(--ease-out),
+    box-shadow 0.22s var(--ease-out);
+}
+.field::placeholder {
+  color: var(--color-faint);
+  opacity: 1;
+}
+.field:focus {
+  border-color: var(--color-alert);
+  outline: none;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-alert) 16%, transparent);
+}
+select.field {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--color-muted) 50%),
+    linear-gradient(135deg, var(--color-muted) 50%, transparent 50%);
+  background-position: calc(100% - 16px) 55%, calc(100% - 11px) 55%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 2rem;
+  cursor: pointer;
+}
+select.field option {
+  background: var(--color-ink2);
+  color: var(--color-bone);
+}
+
+/* ---------- Tiles / tarjetas: esquinas orgánicas + sombra en capas ---------- */
+.tile {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  display: block;
+  padding: 1.15rem 1.25rem;
+  transition:
+    transform 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out),
+    background 0.3s var(--ease-out),
+    box-shadow 0.3s var(--ease-out);
+}
+.tile:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--color-alert) 45%, var(--color-line));
+  background: var(--color-raised);
+  box-shadow: var(--shadow-md);
+}
+
+.inklink {
+  color: var(--color-warn);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.2s var(--ease-out);
+}
+.inklink:hover {
+  color: var(--color-bone);
+}
+
+.scroll-progress {
+  position: fixed;
+  top: 0.65rem;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 60;
+  height: 3px;
+  width: min(92vw, 68rem);
+  border-radius: var(--radius-pill);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: var(--color-alert);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--color-alert) 50%, transparent);
+  pointer-events: none;
+}
+
+/* Cajón móvil: entra desde la derecha con transición */
+.menu-fade {
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+  background: color-mix(in srgb, #000000 55%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-out);
+  backdrop-filter: blur(4px);
+}
+.menu-fade.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.menu-drawer {
+  position: fixed;
+  top: 0.65rem;
+  right: 0.65rem;
+  bottom: 0.65rem;
+  z-index: 40;
+  width: min(21rem, 88vw);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-line);
+  background: var(--color-ink2);
+  transform: translateX(110%);
+  visibility: hidden;
+  transition:
+    transform 0.4s var(--ease-out),
+    visibility 0s linear 0.4s;
+  box-shadow: var(--shadow-lg);
+}
+.menu-drawer.open {
+  transform: translateX(0);
+  visibility: visible;
+  transition:
+    transform 0.4s var(--ease-out),
+    visibility 0s;
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out);
+  transition-delay: var(--rd, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.on {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Menús desplegables (hover escritorio) ---------- */
+.menu-panel {
+  opacity: 0;
+  visibility: hidden;
+  border-radius: var(--radius-lg);
+  transform: translateY(10px) scale(0.98);
+  transform-origin: top center;
+  transition:
+    opacity 0.22s var(--ease-out),
+    transform 0.22s var(--ease-out),
+    visibility 0s linear 0.22s;
+  pointer-events: none;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.group:hover > .menu-panel,
+.group:focus-within > .menu-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 0.24s var(--ease-out),
+    transform 0.24s var(--ease-out);
+  pointer-events: auto;
+}
+.menu-panel > * {
+  animation: rise 0.3s var(--ease-out) both;
+}
+.menu-panel > *:nth-child(2) {
+  animation-delay: 0.04s;
+}
+.menu-panel > *:nth-child(3) {
+  animation-delay: 0.08s;
+}
+.menu-panel > *:nth-child(4) {
+  animation-delay: 0.12s;
+}
+.menu-panel > *:nth-child(5) {
+  animation-delay: 0.16s;
+}
+.menu-panel > *:nth-child(6) {
+  animation-delay: 0.2s;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Menú móvil: acordeones ---------- */
+.menu-acc {
+  overflow: hidden;
+  animation: accd 0.32s var(--ease-out) both;
+}
+@keyframes accd {
+  from {
+    opacity: 0;
+    transform: translateY(-7px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Selector de tema ---------- */
+.theme-menu {
+  opacity: 0;
+  visibility: hidden;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transform: translateY(8px) scale(0.97);
+  transform-origin: top right;
+  transition:
+    opacity 0.2s var(--ease-out),
+    transform 0.2s var(--ease-out),
+    visibility 0s linear 0.2s;
+  box-shadow: var(--shadow-lg);
+}
+.theme-menu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 0.22s var(--ease-out),
+    transform 0.22s var(--ease-out);
+}
+.theme-menu button {
+  animation: rise 0.26s var(--ease-out) both;
+}
+.theme-menu button:nth-child(2) {
+  animation-delay: 0.03s;
+}
+.theme-menu button:nth-child(3) {
+  animation-delay: 0.06s;
+}
+.theme-menu button:nth-child(4) {
+  animation-delay: 0.09s;
+}
+.theme-menu button:nth-child(5) {
+  animation-delay: 0.12s;
+}
+
+/* ---------- Entrada de página ---------- */
+.enter {
+  animation: enter 0.35s var(--ease-out) both;
+}
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Skeleton ---------- */
+.sk {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+}
+.sk::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-bone) 5%, transparent),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ---------- Barrido de radar (logo, decorativo y calmo) ---------- */
+.radar-sweep {
+  animation: sweep 8s linear infinite;
+  transform-origin: 50% 50%;
+}
+@keyframes sweep {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Contadores ---------- */
+.pulse-num {
+  animation: numpulse 0.35s var(--ease-out);
+}
+@keyframes numpulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ---------- Aviso simulación ---------- */
+.sim-note {
+  border-radius: var(--radius-md);
+  border: 1px dashed color-mix(in srgb, var(--color-warn) 55%, transparent);
+  color: var(--color-warn);
+  background: color-mix(in srgb, var(--color-warn) 6%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .chip-dot,
+  .radar-sweep {
+    animation: none;
+  }
+  .liquid-glass,
+  .liquid-glass-strong {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
